@@ -1,9 +1,10 @@
-import { Search, TrendingUp, Filter } from "lucide-react";
+import { Search, TrendingUp, Filter, Trophy } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { PostCard } from "./post-card";
+import { CommunityChallenge } from "./community-challenge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface ExploreSectionProps {
@@ -11,6 +12,72 @@ interface ExploreSectionProps {
   trendingTags: string[];
   onSearch: (query: string) => void;
 }
+
+// Mock challenges data
+const mockChallenges = [
+  {
+    id: "1",
+    title: "Semana Sin Auto",
+    description: "Usa transporte público, bicicleta o camina durante una semana completa",
+    category: "transport" as const,
+    duration: "3 días",
+    participants: 127,
+    maxParticipants: 200,
+    progress: 65,
+    goalValue: 1000,
+    currentValue: 650,
+    unit: "km evitados",
+    reward: {
+      type: "badge" as const,
+      value: "Eco Walker",
+      icon: "🚶‍♂️"
+    },
+    participantAvatars: [],
+    isParticipating: false,
+    difficulty: "medium" as const
+  },
+  {
+    id: "2", 
+    title: "Lunes Veganos",
+    description: "Adopta una dieta vegana todos los lunes del mes y comparte tus recetas",
+    category: "food" as const,
+    duration: "2 semanas",
+    participants: 89,
+    progress: 42,
+    goalValue: 500,
+    currentValue: 210,
+    unit: "comidas veganas",
+    reward: {
+      type: "badge" as const,
+      value: "Plant Warrior",
+      icon: "🌱"
+    },
+    participantAvatars: [],
+    isParticipating: true,
+    difficulty: "easy" as const
+  },
+  {
+    id: "3",
+    title: "Energía Solar Comunitaria", 
+    description: "Instala paneles solares o usa energía renovable en tu hogar",
+    category: "energy" as const,
+    duration: "1 mes",
+    participants: 34,
+    maxParticipants: 50,
+    progress: 28,
+    goalValue: 2000,
+    currentValue: 560,
+    unit: "kWh generados",
+    reward: {
+      type: "badge" as const,
+      value: "Solar Champion",
+      icon: "☀️"
+    },
+    participantAvatars: [],
+    isParticipating: false,
+    difficulty: "hard" as const
+  }
+];
 
 export const ExploreSection = ({ posts, trendingTags, onSearch }: ExploreSectionProps) => {
   const categories = [
@@ -20,6 +87,16 @@ export const ExploreSection = ({ posts, trendingTags, onSearch }: ExploreSection
     { id: "energy", label: "Hogar", count: posts.filter(p => p.actionType === "energy").length },
     { id: "shopping", label: "Compras", count: posts.filter(p => p.actionType === "shopping").length },
   ];
+
+  const handleJoinChallenge = (challengeId: string) => {
+    console.log("Joining challenge:", challengeId);
+    // TODO: Implement join challenge logic
+  };
+
+  const handleViewChallengeDetails = (challengeId: string) => {
+    console.log("Viewing challenge details:", challengeId);
+    // TODO: Implement view challenge details logic
+  };
 
   return (
     <div className="space-y-6 p-4">
@@ -37,6 +114,31 @@ export const ExploreSection = ({ posts, trendingTags, onSearch }: ExploreSection
           />
         </div>
       </div>
+
+      {/* Community Challenges */}
+      <Card className="shadow-card">
+        <CardHeader>
+          <CardTitle className="font-poppins text-lg flex items-center space-x-2">
+            <Trophy size={20} className="text-eco-green" />
+            <span>Desafíos de la Comunidad</span>
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {mockChallenges.slice(0, 2).map((challenge) => (
+              <CommunityChallenge
+                key={challenge.id}
+                challenge={challenge}
+                onJoin={handleJoinChallenge}
+                onViewDetails={handleViewChallengeDetails}
+              />
+            ))}
+          </div>
+          <Button variant="outline" className="w-full font-inter">
+            Ver todos los desafíos
+          </Button>
+        </CardContent>
+      </Card>
 
       {/* Trending Tags */}
       <Card className="shadow-card">
@@ -62,8 +164,9 @@ export const ExploreSection = ({ posts, trendingTags, onSearch }: ExploreSection
       {/* Content Tabs */}
       <Tabs defaultValue="all" className="w-full">
         <div className="flex items-center justify-between mb-4">
-          <TabsList className="grid w-full max-w-md grid-cols-3">
+          <TabsList className="grid w-full max-w-lg grid-cols-4">
             <TabsTrigger value="all" className="font-inter text-xs">Todo</TabsTrigger>
+            <TabsTrigger value="challenges" className="font-inter text-xs">Desafíos</TabsTrigger>
             <TabsTrigger value="trending" className="font-inter text-xs">Trending</TabsTrigger>
             <TabsTrigger value="recent" className="font-inter text-xs">Reciente</TabsTrigger>
           </TabsList>
@@ -95,6 +198,19 @@ export const ExploreSection = ({ posts, trendingTags, onSearch }: ExploreSection
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {posts.map((post, index) => (
               <PostCard key={index} {...post} />
+            ))}
+          </div>
+        </TabsContent>
+
+        <TabsContent value="challenges" className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {mockChallenges.map((challenge) => (
+              <CommunityChallenge
+                key={challenge.id}
+                challenge={challenge}
+                onJoin={handleJoinChallenge}
+                onViewDetails={handleViewChallengeDetails}
+              />
             ))}
           </div>
         </TabsContent>
