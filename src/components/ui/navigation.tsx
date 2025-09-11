@@ -1,4 +1,4 @@
-import { Home, Search, BarChart3, User, Plus } from "lucide-react";
+import { Home, Search, BarChart3, User, Plus, Gift } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface NavigationProps {
@@ -11,6 +11,7 @@ export const Navigation = ({ activeTab, onTabChange }: NavigationProps) => {
     { id: "feed", icon: Home, label: "Inicio" },
     { id: "explore", icon: Search, label: "Explorar" },
     { id: "footprint", icon: BarChart3, label: "Huella" },
+    { id: "benefits", icon: Gift, label: "Beneficios" },
     { id: "profile", icon: User, label: "Perfil" },
   ];
 
@@ -49,9 +50,9 @@ export const Navigation = ({ activeTab, onTabChange }: NavigationProps) => {
         </div>
       </nav>
 
-      {/* Mobile Navigation */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-sm border-t border-border">
-        <div className="grid grid-cols-4 px-2 py-2">
+        {/* Mobile Navigation */}
+        <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-sm border-t border-border">
+          <div className="grid grid-cols-5 px-2 py-2">
           {tabs.map((tab) => {
             const Icon = tab.icon;
             return (

@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Navigation } from "@/components/ui/navigation";
 import { FeedSection } from "@/components/eco/feed-section";
 import { ExploreSection } from "@/components/eco/explore-section";
@@ -7,6 +8,27 @@ import { UserProfile } from "@/components/eco/user-profile";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState("feed");
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Handle navigation based on tab selection
+  const handleTabChange = (tab: string) => {
+    setActiveTab(tab);
+    if (tab === "benefits") {
+      navigate("/benefits");
+    }
+    // Other tabs stay on the main page
+  };
+
+  // Set active tab based on current route
+  useEffect(() => {
+    if (location.pathname === "/benefits") {
+      setActiveTab("benefits");
+    } else {
+      // Default to feed for main page
+      setActiveTab("feed");
+    }
+  }, [location.pathname]);
 
   // Mock data
   const currentUser = {
@@ -157,7 +179,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background font-inter">
-      <Navigation activeTab={activeTab} onTabChange={setActiveTab} />
+      <Navigation activeTab={activeTab} onTabChange={handleTabChange} />
       
       {/* Main Content */}
       <main className="pt-16 md:pt-20 pb-20 md:pb-8">
