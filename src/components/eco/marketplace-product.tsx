@@ -30,11 +30,18 @@ export const MarketplaceProduct = ({ product, onAddToCart }: MarketplaceProductP
     : 0;
 
   return (
-    <Card className="shadow-card hover:shadow-eco transition-all duration-200 group">
-      <div className="relative">
-        <div className="aspect-square bg-gradient-subtle rounded-t-lg flex items-center justify-center">
-          <span className="text-4xl">{product.image}</span>
-        </div>
+    <article className="w-full">
+      <Card className="shadow-card hover:shadow-eco transition-all duration-200 group">
+        <div className="relative">
+          <div className="aspect-square bg-gradient-subtle rounded-t-lg flex items-center justify-center">
+            <span 
+              className="text-2xl sm:text-3xl md:text-4xl" 
+              role="img" 
+              aria-label={`Imagen del producto ${product.name}`}
+            >
+              {product.image}
+            </span>
+          </div>
         
         {/* Eco Score Badge */}
         <div className="absolute top-2 left-2">
@@ -70,7 +77,7 @@ export const MarketplaceProduct = ({ product, onAddToCart }: MarketplaceProductP
         </div>
 
         {/* Product Name */}
-        <h3 className="font-poppins font-semibold text-sm line-clamp-2 group-hover:text-eco-green transition-colors">
+        <h3 className="font-poppins font-semibold text-sm sm:text-base line-clamp-2 group-hover:text-eco-green transition-colors">
           {product.name}
         </h3>
 
@@ -135,5 +142,6 @@ export const MarketplaceProduct = ({ product, onAddToCart }: MarketplaceProductP
         </div>
       </CardContent>
     </Card>
+    </article>
   );
 };

@@ -15,16 +15,16 @@ interface FeedSectionProps {
 
 export const FeedSection = ({ posts, currentUser, onCreatePost }: FeedSectionProps) => {
   return (
-    <div className="space-y-6 p-4">
+    <section className="space-y-4 sm:space-y-6 p-2 sm:p-4" aria-label="Feed de la comunidad">
       {/* Welcome Header */}
-      <div className="text-center space-y-2 py-6">
-        <h1 className="font-poppins font-bold text-2xl text-foreground">
+      <header className="text-center space-y-2 py-4 sm:py-6">
+        <h1 className="font-poppins font-bold text-xl sm:text-2xl text-foreground">
           ¡Hola, {currentUser.name.split(' ')[0]}! 👋
         </h1>
-        <p className="text-muted-foreground font-inter">
+        <p className="text-sm sm:text-base text-muted-foreground font-inter max-w-md mx-auto">
           Descubre qué está haciendo tu comunidad para cuidar el planeta
         </p>
-      </div>
+      </header>
 
       {/* Quick Post */}
       <Card className="shadow-card hover:shadow-lg transition-all duration-300">
@@ -62,10 +62,12 @@ export const FeedSection = ({ posts, currentUser, onCreatePost }: FeedSectionPro
       </Card>
 
       {/* Feed Posts */}
-      <div className="space-y-4">
+      <section className="space-y-3 sm:space-y-4" aria-label="Publicaciones de la comunidad">
         {posts.length > 0 ? (
           posts.map((post, index) => (
-            <PostCard key={index} {...post} />
+            <article key={index}>
+              <PostCard {...post} />
+            </article>
           ))
         ) : (
           <Card className="shadow-card bg-gradient-subtle border-dashed">
@@ -87,8 +89,8 @@ export const FeedSection = ({ posts, currentUser, onCreatePost }: FeedSectionPro
               </Button>
             </CardContent>
           </Card>
-        )}
-      </div>
+         )}
+      </section>
 
       {/* Load More */}
       {posts.length > 0 && (
@@ -98,6 +100,6 @@ export const FeedSection = ({ posts, currentUser, onCreatePost }: FeedSectionPro
           </Button>
         </div>
       )}
-    </div>
+    </section>
   );
 };

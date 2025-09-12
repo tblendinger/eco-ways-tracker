@@ -182,8 +182,8 @@ const Index = () => {
       <Navigation activeTab={activeTab} onTabChange={handleTabChange} />
       
       {/* Main Content */}
-      <main className="pt-16 md:pt-20 pb-20 md:pb-8">
-        <div className="container mx-auto max-w-2xl">
+      <main className="pt-16 md:pt-20 pb-20 md:pb-8" role="main">
+        <div className="container mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
           {renderContent()}
         </div>
       </main>

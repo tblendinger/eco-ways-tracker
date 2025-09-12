@@ -282,209 +282,225 @@ const Benefits = () => {
     : mockBenefits.filter(b => b.category === selectedCategory);
 
   return (
-    <div className="space-y-6 p-4">
+    <section className="space-y-4 sm:space-y-6 p-2 sm:p-4">
       {/* Header */}
-      <div className="text-center space-y-2">
-        <h1 className="font-poppins font-bold text-2xl text-foreground">Tienda Eco</h1>
-        <p className="text-muted-foreground font-inter">
+      <header className="text-center space-y-3 sm:space-y-4">
+        <h1 className="font-poppins font-bold text-2xl sm:text-3xl text-foreground">Tienda Eco</h1>
+        <p className="text-sm sm:text-base text-muted-foreground font-inter max-w-2xl mx-auto px-4">
           Productos sostenibles y beneficios exclusivos para una vida más eco-friendly
         </p>
-      </div>
+      </header>
 
       {/* Stats Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <section className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4" aria-label="Estadísticas de la tienda">
         <Card className="shadow-card text-center">
-          <CardContent className="p-6">
+          <CardContent className="p-4 sm:p-6">
             <div className="space-y-2">
-              <div className="text-3xl font-poppins font-bold text-eco-green">{mockProducts.length}</div>
-              <div className="text-sm text-muted-foreground font-inter">Productos disponibles</div>
+              <div className="text-2xl sm:text-3xl font-poppins font-bold text-eco-green">{mockProducts.length}</div>
+              <div className="text-xs sm:text-sm text-muted-foreground font-inter">Productos disponibles</div>
             </div>
           </CardContent>
         </Card>
 
         <Card className="shadow-card text-center">
-          <CardContent className="p-6">
+          <CardContent className="p-4 sm:p-6">
             <div className="space-y-2">
-              <div className="text-3xl font-poppins font-bold text-eco-orange">{unlockedBenefits.length}</div>
-              <div className="text-sm text-muted-foreground font-inter">Beneficios desbloqueados</div>
+              <div className="text-2xl sm:text-3xl font-poppins font-bold text-eco-orange">{unlockedBenefits.length}</div>
+              <div className="text-xs sm:text-sm text-muted-foreground font-inter">Beneficios desbloqueados</div>
             </div>
           </CardContent>
         </Card>
 
         <Card className="shadow-card text-center">
-          <CardContent className="p-6">
+          <CardContent className="p-4 sm:p-6">
             <div className="space-y-2">
-              <div className="text-3xl font-poppins font-bold text-foreground">15%</div>
-              <div className="text-sm text-muted-foreground font-inter">Descuento promedio</div>
+              <div className="text-2xl sm:text-3xl font-poppins font-bold text-foreground">15%</div>
+              <div className="text-xs sm:text-sm text-muted-foreground font-inter">Descuento promedio</div>
             </div>
           </CardContent>
         </Card>
-      </div>
+      </section>
 
       {/* Featured Products */}
-      <Card className="shadow-card">
-        <CardHeader>
-          <CardTitle className="font-poppins text-lg flex items-center space-x-2">
-            <Store size={20} className="text-eco-green" />
-            <span>Productos Destacados</span>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {mockProducts.slice(0, 3).map((product) => (
-              <div key={product.id} className="p-4 border rounded-lg bg-gradient-subtle hover:shadow-eco transition-all duration-200">
-                <div className="flex items-center space-x-2 mb-2">
-                  <span className="text-2xl">{product.image}</span>
-                  <div className="flex-1">
-                    <h4 className="font-poppins font-semibold text-sm line-clamp-1">{product.name}</h4>
-                    <p className="text-xs text-muted-foreground">{product.category}</p>
+      <section aria-labelledby="productos-destacados-preview">
+        <Card className="shadow-card">
+          <CardHeader>
+            <CardTitle id="productos-destacados-preview" className="font-poppins text-base sm:text-lg flex items-center space-x-2">
+              <Store size={20} className="text-eco-green" />
+              <span>Productos Destacados</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+              {mockProducts.slice(0, 3).map((product) => (
+                <article key={product.id} className="p-3 sm:p-4 border rounded-lg bg-gradient-subtle hover:shadow-eco transition-all duration-200">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <span className="text-xl sm:text-2xl" role="img" aria-label={`Icono de ${product.name}`}>
+                      {product.image}
+                    </span>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-poppins font-semibold text-sm line-clamp-1">{product.name}</h3>
+                      <p className="text-xs text-muted-foreground">{product.category}</p>
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="font-poppins font-bold text-lg text-eco-green">
-                    ${product.price}
+                  <div className="flex items-center justify-between">
+                    <div className="font-poppins font-bold text-base sm:text-lg text-eco-green">
+                      ${product.price}
+                    </div>
+                    <Badge className="bg-eco-green text-white text-xs">
+                      Eco {product.ecoScore}/10
+                    </Badge>
                   </div>
-                  <Badge className="bg-eco-green text-white text-xs">
-                    Eco {product.ecoScore}/10
-                  </Badge>
-                </div>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+                </article>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </section>
 
       {/* Main Content */}
-      <Tabs defaultValue="products" className="w-full">
-        <div className="flex items-center justify-between mb-4">
-          <TabsList className="grid w-full max-w-lg grid-cols-3">
-            <TabsTrigger value="products" className="font-inter">Productos</TabsTrigger>
-            <TabsTrigger value="benefits" className="font-inter">Beneficios</TabsTrigger>
-            <TabsTrigger value="unlocked" className="font-inter">Desbloqueados</TabsTrigger>
-          </TabsList>
-          
-          <Button variant="outline" size="sm" className="flex items-center space-x-2">
-            <Filter size={16} />
-            <span className="font-inter">Filtros</span>
-          </Button>
-        </div>
-
-        {/* Category Filters */}
-        <div className="flex space-x-2 mb-6 overflow-x-auto pb-2">
-          {categories.map((category) => (
-            <Button
-              key={category.id}
-              variant={selectedCategory === category.id ? "default" : "outline"}
-              size="sm"
-              className="whitespace-nowrap flex items-center space-x-2 font-inter"
-              onClick={() => setSelectedCategory(category.id)}
+      <section className="w-full" role="region" aria-label="Catálogo de productos y beneficios">
+        <Tabs defaultValue="products" className="w-full">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-3">
+            <TabsList className="grid w-full max-w-lg grid-cols-3">
+              <TabsTrigger value="products" className="font-inter text-sm">Productos</TabsTrigger>
+              <TabsTrigger value="benefits" className="font-inter text-sm">Beneficios</TabsTrigger>
+              <TabsTrigger value="unlocked" className="font-inter text-sm">Desbloqueados</TabsTrigger>
+            </TabsList>
+            
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="flex items-center space-x-2 w-full sm:w-auto"
+              aria-label="Abrir filtros"
             >
-              <span>{category.label}</span>
-              <Badge variant="secondary" className="text-xs">
-                {category.count}
-              </Badge>
+              <Filter size={16} />
+              <span className="font-inter">Filtros</span>
             </Button>
-          ))}
+          </div>
+
+          {/* Category Filters */}
+          <div className="flex space-x-2 mb-4 sm:mb-6 overflow-x-auto pb-2" role="tablist" aria-label="Filtros por categoría">
+            {categories.map((category) => (
+              <Button
+                key={category.id}
+                variant={selectedCategory === category.id ? "default" : "outline"}
+                size="sm"
+                className="whitespace-nowrap flex items-center space-x-2 font-inter text-xs sm:text-sm"
+                onClick={() => setSelectedCategory(category.id)}
+                role="tab"
+                aria-selected={selectedCategory === category.id}
+                aria-controls={`panel-${category.id}`}
+              >
+                <span>{category.label}</span>
+                <Badge variant="secondary" className="text-xs">
+                  {category.count}
+                </Badge>
+              </Button>
+            ))}
         </div>
 
-        <TabsContent value="products" className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {mockProducts.map((product) => (
-              <MarketplaceProduct
-                key={product.id}
-                product={product}
-                onAddToCart={handleAddToCart}
-              />
-            ))}
-          </div>
-        </TabsContent>
+          <TabsContent value="products" className="space-y-4" role="tabpanel" id="panel-products">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
+              {mockProducts.map((product) => (
+                <MarketplaceProduct
+                  key={product.id}
+                  product={product}
+                  onAddToCart={handleAddToCart}
+                />
+              ))}
+            </div>
+          </TabsContent>
 
-        <TabsContent value="benefits" className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {filteredBenefits.map((benefit) => (
-              <BenefitCard
-                key={benefit.id}
-                benefit={benefit}
-                onClaim={handleClaimBenefit}
-                onViewTerms={handleViewTerms}
-              />
-            ))}
-          </div>
-        </TabsContent>
+          <TabsContent value="benefits" className="space-y-4" role="tabpanel" id="panel-benefits">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 lg:gap-6">
+              {filteredBenefits.map((benefit) => (
+                <BenefitCard
+                  key={benefit.id}
+                  benefit={benefit}
+                  onClaim={handleClaimBenefit}
+                  onViewTerms={handleViewTerms}
+                />
+              ))}
+            </div>
+          </TabsContent>
 
-        <TabsContent value="unlocked" className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {unlockedBenefits.map((benefit) => (
-              <BenefitCard
-                key={benefit.id}
-                benefit={benefit}
-                onClaim={handleClaimBenefit}
-                onViewTerms={handleViewTerms}
-              />
-            ))}
-          </div>
-          {unlockedBenefits.length === 0 && (
-            <Card className="shadow-card bg-gradient-subtle border-dashed">
-              <CardContent className="p-8 text-center space-y-4">
-                <div className="w-16 h-16 bg-eco-green/10 rounded-full flex items-center justify-center mx-auto">
-                  <Target size={32} className="text-eco-green" />
-                </div>
-                <div className="space-y-2">
-                  <h3 className="font-poppins font-semibold text-lg">Aún no tienes beneficios desbloqueados</h3>
-                  <p className="text-muted-foreground font-inter">
-                    Continúa registrando acciones sostenibles para desbloquear descuentos exclusivos
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          )}
-        </TabsContent>
+          <TabsContent value="unlocked" className="space-y-4" role="tabpanel" id="panel-unlocked">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 lg:gap-6">
+              {unlockedBenefits.map((benefit) => (
+                <BenefitCard
+                  key={benefit.id}
+                  benefit={benefit}
+                  onClaim={handleClaimBenefit}
+                  onViewTerms={handleViewTerms}
+                />
+              ))}
+            </div>
+            {unlockedBenefits.length === 0 && (
+              <Card className="shadow-card bg-gradient-subtle border-dashed">
+                <CardContent className="p-6 sm:p-8 text-center space-y-4">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 bg-eco-green/10 rounded-full flex items-center justify-center mx-auto">
+                    <Target size={24} className="text-eco-green sm:w-8 sm:h-8" />
+                  </div>
+                  <div className="space-y-2">
+                    <h3 className="font-poppins font-semibold text-base sm:text-lg">Aún no tienes beneficios desbloqueados</h3>
+                    <p className="text-sm sm:text-base text-muted-foreground font-inter max-w-md mx-auto">
+                      Continúa registrando acciones sostenibles para desbloquear descuentos exclusivos
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+          </TabsContent>
 
-      </Tabs>
+        </Tabs>
+      </section>
 
       {/* How it Works */}
-      <Card className="shadow-card bg-gradient-subtle">
-        <CardHeader>
-          <CardTitle className="font-poppins text-lg flex items-center space-x-2">
-            <Award size={20} className="text-eco-green" />
-            <span>¿Cómo funciona?</span>
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="text-center space-y-2">
-              <div className="w-12 h-12 bg-eco-green/10 rounded-full flex items-center justify-center mx-auto">
-                <span className="font-poppins font-bold text-eco-green">1</span>
+      <section aria-labelledby="como-funciona">
+        <Card className="shadow-card bg-gradient-subtle">
+          <CardHeader>
+            <CardTitle id="como-funciona" className="font-poppins text-base sm:text-lg flex items-center space-x-2">
+              <Award size={20} className="text-eco-green" />
+              <span>¿Cómo funciona?</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+              <div className="text-center space-y-2">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-eco-green/10 rounded-full flex items-center justify-center mx-auto">
+                  <span className="font-poppins font-bold text-eco-green text-sm sm:text-base">1</span>
+                </div>
+                <h3 className="font-poppins font-semibold text-sm sm:text-base">Registra acciones</h3>
+                <p className="text-xs sm:text-sm text-muted-foreground font-inter">
+                  Usa transporte sostenible, come vegano, ahorra energía
+                </p>
               </div>
-              <h4 className="font-poppins font-semibold">Registra acciones</h4>
-              <p className="text-sm text-muted-foreground font-inter">
-                Usa transporte sostenible, come vegano, ahorra energía
-              </p>
-            </div>
-            
-            <div className="text-center space-y-2">
-              <div className="w-12 h-12 bg-eco-green/10 rounded-full flex items-center justify-center mx-auto">
-                <span className="font-poppins font-bold text-eco-green">2</span>
+              
+              <div className="text-center space-y-2">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-eco-green/10 rounded-full flex items-center justify-center mx-auto">
+                  <span className="font-poppins font-bold text-eco-green text-sm sm:text-base">2</span>
+                </div>
+                <h3 className="font-poppins font-semibold text-sm sm:text-base">Reduce CO₂</h3>
+                <p className="text-xs sm:text-sm text-muted-foreground font-inter">
+                  Cada acción suma a tu reducción mensual de emisiones
+                </p>
               </div>
-              <h4 className="font-poppins font-semibold">Reduce CO₂</h4>
-              <p className="text-sm text-muted-foreground font-inter">
-                Cada acción suma a tu reducción mensual de emisiones
-              </p>
-            </div>
-            
-            <div className="text-center space-y-2">
-              <div className="w-12 h-12 bg-eco-green/10 rounded-full flex items-center justify-center mx-auto">
-                <span className="font-poppins font-bold text-eco-green">3</span>
+              
+              <div className="text-center space-y-2">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-eco-green/10 rounded-full flex items-center justify-center mx-auto">
+                  <span className="font-poppins font-bold text-eco-green text-sm sm:text-base">3</span>
+                </div>
+                <h3 className="font-poppins font-semibold text-sm sm:text-base">Desbloquea beneficios</h3>
+                <p className="text-xs sm:text-sm text-muted-foreground font-inter">
+                  Accede a descuentos exclusivos de nuestros partners
+                </p>
               </div>
-              <h4 className="font-poppins font-semibold">Desbloquea beneficios</h4>
-              <p className="text-sm text-muted-foreground font-inter">
-                Accede a descuentos exclusivos de nuestros partners
-              </p>
             </div>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
+          </CardContent>
+        </Card>
+      </section>
+    </section>
   );
 };
 
