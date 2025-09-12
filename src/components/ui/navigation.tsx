@@ -11,7 +11,7 @@ export const Navigation = ({ activeTab, onTabChange }: NavigationProps) => {
     { id: "feed", icon: Home, label: "Inicio" },
     { id: "explore", icon: Search, label: "Explorar" },
     { id: "footprint", icon: BarChart3, label: "Huella" },
-    { id: "benefits", icon: Gift, label: "Beneficios" },
+    { id: "benefits", icon: Gift, label: "Tienda" },
     { id: "profile", icon: User, label: "Perfil" },
   ];
 
@@ -24,7 +24,7 @@ export const Navigation = ({ activeTab, onTabChange }: NavigationProps) => {
             <div className="w-8 h-8 bg-gradient-eco rounded-full flex items-center justify-center">
               <span className="text-white font-poppins font-bold text-sm">E</span>
             </div>
-            <span className="font-poppins font-bold text-xl text-foreground">EcoRed</span>
+            <span className="font-poppins font-bold text-xl text-foreground">Eco Ways Tracker</span>
           </div>
           
           <div className="flex items-center space-x-8">

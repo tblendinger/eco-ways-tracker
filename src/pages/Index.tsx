@@ -32,8 +32,8 @@ const Index = () => {
 
   // Mock data
   const currentUser = {
-    name: "Ana García",
-    username: "ana_eco",
+    name: "Tomás Eco",
+    username: "tomas_eco",
     avatar: undefined,
   };
 
@@ -87,10 +87,10 @@ const Index = () => {
 
   const userProfile = {
     user: {
-      name: "Ana García",
-      username: "ana_eco",
+      name: "Tomás Eco",
+      username: "tomas_eco",
       avatar: undefined,
-      bio: "Apasionada por un futuro sostenible 🌱 | Reduciendo mi huella de carbono día a día | Madrid, España",
+      bio: "Apasionado por un futuro sostenible 🌱 | Reduciendo mi huella de carbono día a día | Madrid, España",
       location: "Madrid, España",
       joinedDate: "marzo 2024",
       stats: {

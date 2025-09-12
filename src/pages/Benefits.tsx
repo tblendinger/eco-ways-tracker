@@ -1,12 +1,106 @@
 import { useState } from "react";
-import { Gift, Star, TrendingUp, Filter, Award, Target } from "lucide-react";
+import { Gift, Star, TrendingUp, Filter, Award, Target, ShoppingBag, Store } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BenefitCard } from "@/components/eco/benefit-card";
+import { MarketplaceProduct } from "@/components/eco/marketplace-product";
 
 const Benefits = () => {
+  // Mock marketplace products
+  const mockProducts = [
+    {
+      id: "1",
+      name: "Botella de Acero Inoxidable 750ml",
+      description: "Botella térmica libre de BPA, mantiene temperatura 12h. Perfecta para hidratarte de forma sostenible.",
+      price: 45,
+      originalPrice: 60,
+      rating: 4.8,
+      reviews: 234,
+      image: "🍃",
+      category: "Hidratación",
+      ecoScore: 9,
+      certifications: ["BPA Free", "Reciclable"],
+      inStock: true,
+      fastShipping: true
+    },
+    {
+      id: "2",
+      name: "Set de Bolsas Reutilizables x5",
+      description: "Bolsas de algodón orgánico certificado. Diferentes tamaños para todas tus compras.",
+      price: 28,
+      originalPrice: 35,
+      rating: 4.6,
+      reviews: 156,
+      image: "♻️",
+      category: "Compras Sostenibles",
+      ecoScore: 10,
+      certifications: ["Algodón Orgánico", "Comercio Justo"],
+      inStock: true,
+      fastShipping: false
+    },
+    {
+      id: "3",
+      name: "Panel Solar Portátil 50W",
+      description: "Carga tus dispositivos con energía solar. Resistente al agua, perfecto para camping y uso doméstico.",
+      price: 120,
+      originalPrice: 150,
+      rating: 4.9,
+      reviews: 89,
+      image: "☀️",
+      category: "Energía Renovable",
+      ecoScore: 10,
+      certifications: ["IP65", "Garantía 5 años"],
+      inStock: true,
+      fastShipping: true
+    },
+    {
+      id: "4",
+      name: "Kit de Cubiertos Bambú + Estuche",
+      description: "Set completo de cubiertos de bambú orgánico con estuche de algodón. Ideal para llevar.",
+      price: 22,
+      rating: 4.5,
+      reviews: 312,
+      image: "🎋",
+      category: "Alimentación",
+      ecoScore: 8,
+      certifications: ["Bambú Orgánico"],
+      inStock: false,
+      fastShipping: false
+    },
+    {
+      id: "5",
+      name: "Cepillo de Dientes de Bambú x4",
+      description: "Pack familiar de cepillos biodegradables. Cerdas suaves de origen vegetal.",
+      price: 18,
+      originalPrice: 24,
+      rating: 4.7,
+      reviews: 198,
+      image: "🦷",
+      category: "Cuidado Personal",
+      ecoScore: 9,
+      certifications: ["Biodegradable", "Vegano"],
+      inStock: true,
+      fastShipping: true
+    },
+    {
+      id: "6",
+      name: "Compostador Doméstico 20L",
+      description: "Convierte tus residuos orgánicos en abono natural. Incluye filtro anti-olores.",
+      price: 85,
+      originalPrice: 110,
+      rating: 4.4,
+      reviews: 67,
+      image: "🌱",
+      category: "Jardín Sostenible",
+      ecoScore: 9,
+      certifications: ["Reciclado", "Libre de BPA"],
+      inStock: true,
+      fastShipping: false
+    }
+  ];
+
   // Mock benefits data
   const mockBenefits = [
     {
@@ -178,6 +272,11 @@ const Benefits = () => {
     // TODO: Implement view terms logic
   };
 
+  const handleAddToCart = (productId: string) => {
+    console.log("Adding product to cart:", productId);
+    // TODO: Implement add to cart logic
+  };
+
   const filteredBenefits = selectedCategory === "all" 
     ? mockBenefits 
     : mockBenefits.filter(b => b.category === selectedCategory);
@@ -186,9 +285,9 @@ const Benefits = () => {
     <div className="space-y-6 p-4">
       {/* Header */}
       <div className="text-center space-y-2">
-        <h1 className="font-poppins font-bold text-2xl text-foreground">Beneficios EcoRed</h1>
+        <h1 className="font-poppins font-bold text-2xl text-foreground">Tienda Eco</h1>
         <p className="text-muted-foreground font-inter">
-          Reduce tu huella de carbono y accede a descuentos exclusivos de nuestros partners
+          Productos sostenibles y beneficios exclusivos para una vida más eco-friendly
         </p>
       </div>
 
@@ -197,7 +296,16 @@ const Benefits = () => {
         <Card className="shadow-card text-center">
           <CardContent className="p-6">
             <div className="space-y-2">
-              <div className="text-3xl font-poppins font-bold text-eco-green">{unlockedBenefits.length}</div>
+              <div className="text-3xl font-poppins font-bold text-eco-green">{mockProducts.length}</div>
+              <div className="text-sm text-muted-foreground font-inter">Productos disponibles</div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="shadow-card text-center">
+          <CardContent className="p-6">
+            <div className="space-y-2">
+              <div className="text-3xl font-poppins font-bold text-eco-orange">{unlockedBenefits.length}</div>
               <div className="text-sm text-muted-foreground font-inter">Beneficios desbloqueados</div>
             </div>
           </CardContent>
@@ -206,45 +314,39 @@ const Benefits = () => {
         <Card className="shadow-card text-center">
           <CardContent className="p-6">
             <div className="space-y-2">
-              <div className="text-3xl font-poppins font-bold text-foreground">{mockBenefits.length - unlockedBenefits.length}</div>
-              <div className="text-sm text-muted-foreground font-inter">Por desbloquear</div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="shadow-card text-center">
-          <CardContent className="p-6">
-            <div className="space-y-2">
-              <div className="text-3xl font-poppins font-bold text-eco-orange">6</div>
-              <div className="text-sm text-muted-foreground font-inter">Partners activos</div>
+              <div className="text-3xl font-poppins font-bold text-foreground">15%</div>
+              <div className="text-sm text-muted-foreground font-inter">Descuento promedio</div>
             </div>
           </CardContent>
         </Card>
       </div>
 
-      {/* Featured Benefits */}
+      {/* Featured Products */}
       <Card className="shadow-card">
         <CardHeader>
           <CardTitle className="font-poppins text-lg flex items-center space-x-2">
-            <Star size={20} className="text-eco-orange" />
-            <span>Beneficios Destacados</span>
+            <Store size={20} className="text-eco-green" />
+            <span>Productos Destacados</span>
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {featuredBenefits.map((benefit) => (
-              <div key={benefit.id} className="p-4 border rounded-lg bg-gradient-subtle">
+            {mockProducts.slice(0, 3).map((product) => (
+              <div key={product.id} className="p-4 border rounded-lg bg-gradient-subtle hover:shadow-eco transition-all duration-200">
                 <div className="flex items-center space-x-2 mb-2">
-                  <span className="text-2xl">{benefit.partner.logo}</span>
-                  <div>
-                    <h4 className="font-poppins font-semibold text-sm">{benefit.title}</h4>
-                    <p className="text-xs text-muted-foreground">{benefit.partner.name}</p>
+                  <span className="text-2xl">{product.image}</span>
+                  <div className="flex-1">
+                    <h4 className="font-poppins font-semibold text-sm line-clamp-1">{product.name}</h4>
+                    <p className="text-xs text-muted-foreground">{product.category}</p>
                   </div>
                 </div>
-                <div className="text-right">
+                <div className="flex items-center justify-between">
                   <div className="font-poppins font-bold text-lg text-eco-green">
-                    {benefit.discount.value}
+                    ${product.price}
                   </div>
+                  <Badge className="bg-eco-green text-white text-xs">
+                    Eco {product.ecoScore}/10
+                  </Badge>
                 </div>
               </div>
             ))}
@@ -253,12 +355,12 @@ const Benefits = () => {
       </Card>
 
       {/* Main Content */}
-      <Tabs defaultValue="all" className="w-full">
+      <Tabs defaultValue="products" className="w-full">
         <div className="flex items-center justify-between mb-4">
           <TabsList className="grid w-full max-w-lg grid-cols-3">
-            <TabsTrigger value="all" className="font-inter">Todos</TabsTrigger>
+            <TabsTrigger value="products" className="font-inter">Productos</TabsTrigger>
+            <TabsTrigger value="benefits" className="font-inter">Beneficios</TabsTrigger>
             <TabsTrigger value="unlocked" className="font-inter">Desbloqueados</TabsTrigger>
-            <TabsTrigger value="progress" className="font-inter">En Progreso</TabsTrigger>
           </TabsList>
           
           <Button variant="outline" size="sm" className="flex items-center space-x-2">
@@ -285,7 +387,19 @@ const Benefits = () => {
           ))}
         </div>
 
-        <TabsContent value="all" className="space-y-4">
+        <TabsContent value="products" className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {mockProducts.map((product) => (
+              <MarketplaceProduct
+                key={product.id}
+                product={product}
+                onAddToCart={handleAddToCart}
+              />
+            ))}
+          </div>
+        </TabsContent>
+
+        <TabsContent value="benefits" className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {filteredBenefits.map((benefit) => (
               <BenefitCard
@@ -326,18 +440,6 @@ const Benefits = () => {
           )}
         </TabsContent>
 
-        <TabsContent value="progress" className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {mockBenefits.filter(b => !b.isUnlocked && b.userProgress && b.userProgress > 0).map((benefit) => (
-              <BenefitCard
-                key={benefit.id}
-                benefit={benefit}
-                onClaim={handleClaimBenefit}
-                onViewTerms={handleViewTerms}
-              />
-            ))}
-          </div>
-        </TabsContent>
       </Tabs>
 
       {/* How it Works */}
