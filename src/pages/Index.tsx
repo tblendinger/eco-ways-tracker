@@ -7,36 +7,7 @@ import { CarbonDashboard } from "@/components/eco/carbon-dashboard";
 import { UserProfile } from "@/components/eco/user-profile";
 
 const Index = () => {
-  const [activeTab, setActiveTab] = useState("feed");
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  // Handle navigation based on tab selection
-  const handleTabChange = (tab: string) => {
-    setActiveTab(tab);
-    if (tab === "benefits") {
-      navigate("/benefits");
-    }
-    // Other tabs stay on the main page
-  };
-
-  // Set active tab based on current route
-  useEffect(() => {
-    if (location.pathname === "/benefits") {
-      setActiveTab("benefits");
-    } else {
-      // Default to feed for main page
-      setActiveTab("feed");
-    }
-  }, [location.pathname]);
-
-  // Mock data
-  const currentUser = {
-    name: "Tomás Eco",
-    username: "tomas_eco",
-    avatar: undefined,
-  };
-
+  // Mock data - moved up to fix declaration order
   const mockPosts = [
     {
       user: { name: "Carlos Verde", username: "carlos_v", avatar: undefined },
@@ -73,10 +44,42 @@ const Index = () => {
     },
   ];
 
+  const [activeTab, setActiveTab] = useState("feed");
+  const [posts, setPosts] = useState(mockPosts);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Handle navigation based on tab selection
+  const handleTabChange = (tab: string) => {
+    setActiveTab(tab);
+    if (tab === "benefits") {
+      navigate("/benefits");
+    }
+    // Other tabs stay on the main page
+  };
+
+  // Set active tab based on current route
+  useEffect(() => {
+    if (location.pathname === "/benefits") {
+      setActiveTab("benefits");
+    } else {
+      // Default to feed for main page
+      setActiveTab("feed");
+    }
+  }, [location.pathname]);
+
+  // Mock data
+  const currentUser = {
+    name: "Tomás Eco",
+    username: "tomas_eco",
+    avatar: undefined,
+  };
+
   const carbonData = {
     total: 12.4,
     weeklyChange: -15,
     monthlyGoal: 50,
+    streak: 7,
     breakdown: {
       transport: 4.2,
       food: 3.8,
@@ -90,8 +93,8 @@ const Index = () => {
       name: "Tomás Eco",
       username: "tomas_eco",
       avatar: undefined,
-      bio: "Apasionado por un futuro sostenible 🌱 | Reduciendo mi huella de carbono día a día | Madrid, España",
-      location: "Madrid, España",
+      bio: "Apasionado por un futuro sostenible 🌱 | Reduciendo mi huella de carbono día a día | Córdoba, Argentina",
+      location: "Córdoba, Argentina",
       joinedDate: "marzo 2024",
       stats: {
         posts: 12,
@@ -123,13 +126,27 @@ const Index = () => {
         },
       ],
     },
-    posts: mockPosts.slice(0, 2),
+    posts: posts.slice(0, 2),
   };
 
   const trendingTags = ["veganismo", "transporte", "energia", "reciclaje", "sostenible", "plantbased"];
 
-  const handleCreatePost = () => {
-    console.log("Opening post creation modal...");
+  const handleCreatePost = (content: string) => {
+    const actionTypes = ["transport", "food", "energy"] as const;
+    const randomAction = actionTypes[Math.floor(Math.random() * actionTypes.length)];
+    
+    const newPost = {
+      user: { name: "Tomás Eco", username: "tomas_eco", avatar: undefined },
+      content,
+      co2Impact: Math.round((Math.random() * 3 + 0.5) * 10) / 10,
+      actionType: randomAction,
+      likes: 0,
+      comments: 0,
+      isLiked: false,
+      timestamp: "ahora",
+      hasSustainableAction: true,
+    };
+    setPosts([newPost, ...posts]);
   };
 
   const handleRegisterAction = () => {
@@ -145,7 +162,7 @@ const Index = () => {
       case "feed":
         return (
           <FeedSection
-            posts={mockPosts}
+            posts={posts}
             currentUser={currentUser}
             onCreatePost={handleCreatePost}
           />
@@ -153,7 +170,7 @@ const Index = () => {
       case "explore":
         return (
           <ExploreSection
-            posts={mockPosts}
+            posts={posts}
             trendingTags={trendingTags}
             onSearch={handleSearch}
           />

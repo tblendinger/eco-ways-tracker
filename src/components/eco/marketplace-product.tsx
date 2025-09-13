@@ -114,17 +114,17 @@ export const MarketplaceProduct = ({ product, onAddToCart }: MarketplaceProductP
 
         {/* Price */}
         <div className="flex items-center justify-between">
-          <div className="space-y-1">
-            <div className="flex items-center space-x-2">
-              <span className="font-poppins font-bold text-lg text-foreground">
-                ${product.price}
-              </span>
-              {product.originalPrice && (
-                <span className="text-sm text-muted-foreground line-through font-inter">
-                  ${product.originalPrice}
-                </span>
-              )}
-            </div>
+           <div className="space-y-1">
+             <div className="flex items-center space-x-2">
+               <span className="font-poppins font-bold text-lg text-foreground">
+                 ${product.price}
+               </span>
+               {product.originalPrice && (
+                 <span className="text-sm text-muted-foreground line-through font-inter">
+                   ${product.originalPrice}
+                 </span>
+               )}
+             </div>
             <div className="text-xs text-muted-foreground font-inter">
               {product.inStock ? "En stock" : "Agotado"}
             </div>

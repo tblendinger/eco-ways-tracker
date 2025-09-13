@@ -1,4 +1,4 @@
-import { TrendingDown, TrendingUp, Calendar, Target, Zap } from "lucide-react";
+import { TrendingDown, TrendingUp, Calendar, Target, Zap, Leaf } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
@@ -8,6 +8,7 @@ interface CarbonData {
   total: number;
   weeklyChange: number;
   monthlyGoal: number;
+  streak?: number;
   breakdown: {
     transport: number;
     food: number;
@@ -22,7 +23,7 @@ interface CarbonDashboardProps {
 }
 
 export const CarbonDashboard = ({ data, onRegisterAction }: CarbonDashboardProps) => {
-  const { total, weeklyChange, monthlyGoal, breakdown } = data;
+  const { total, weeklyChange, monthlyGoal, streak = 0, breakdown } = data;
   const totalBreakdown = Object.values(breakdown).reduce((a, b) => a + b, 0);
   const goalProgress = (total / monthlyGoal) * 100;
   
@@ -42,7 +43,7 @@ export const CarbonDashboard = ({ data, onRegisterAction }: CarbonDashboardProps
       </div>
 
       {/* Main Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <Card className="shadow-card">
           <CardContent className="p-6 text-center">
             <div className="space-y-2">
@@ -71,6 +72,23 @@ export const CarbonDashboard = ({ data, onRegisterAction }: CarbonDashboardProps
               <div className="text-xs text-muted-foreground">
                 {goalProgress.toFixed(0)}% del objetivo
               </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="shadow-card">
+          <CardContent className="p-6 text-center">
+            <div className="space-y-2">
+              <div className="flex items-center justify-center space-x-2">
+                <Leaf size={24} className="text-eco-green" />
+                <span className="text-3xl font-poppins font-bold text-eco-green">{streak}</span>
+              </div>
+              <div className="text-sm text-muted-foreground">días de racha</div>
+              {streak >= 7 && (
+                <Badge className="bg-eco-green text-white">
+                  ¡Racha Desbloqueada! 🍃
+                </Badge>
+              )}
             </div>
           </CardContent>
         </Card>

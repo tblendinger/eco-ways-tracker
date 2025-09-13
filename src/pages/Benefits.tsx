@@ -14,8 +14,8 @@ const Benefits = () => {
       id: "1",
       name: "Botella de Acero Inoxidable 750ml",
       description: "Botella térmica libre de BPA, mantiene temperatura 12h. Perfecta para hidratarte de forma sostenible.",
-      price: 45,
-      originalPrice: 60,
+      price: 13500,
+      originalPrice: 18000,
       rating: 4.8,
       reviews: 234,
       image: "🍃",
@@ -29,8 +29,8 @@ const Benefits = () => {
       id: "2",
       name: "Set de Bolsas Reutilizables x5",
       description: "Bolsas de algodón orgánico certificado. Diferentes tamaños para todas tus compras.",
-      price: 28,
-      originalPrice: 35,
+      price: 8400,
+      originalPrice: 10500,
       rating: 4.6,
       reviews: 156,
       image: "♻️",
@@ -44,8 +44,8 @@ const Benefits = () => {
       id: "3",
       name: "Panel Solar Portátil 50W",
       description: "Carga tus dispositivos con energía solar. Resistente al agua, perfecto para camping y uso doméstico.",
-      price: 120,
-      originalPrice: 150,
+      price: 36000,
+      originalPrice: 45000,
       rating: 4.9,
       reviews: 89,
       image: "☀️",
@@ -59,7 +59,7 @@ const Benefits = () => {
       id: "4",
       name: "Kit de Cubiertos Bambú + Estuche",
       description: "Set completo de cubiertos de bambú orgánico con estuche de algodón. Ideal para llevar.",
-      price: 22,
+      price: 6600,
       rating: 4.5,
       reviews: 312,
       image: "🎋",
@@ -73,8 +73,8 @@ const Benefits = () => {
       id: "5",
       name: "Cepillo de Dientes de Bambú x4",
       description: "Pack familiar de cepillos biodegradables. Cerdas suaves de origen vegetal.",
-      price: 18,
-      originalPrice: 24,
+      price: 5400,
+      originalPrice: 7200,
       rating: 4.7,
       reviews: 198,
       image: "🦷",
@@ -88,8 +88,8 @@ const Benefits = () => {
       id: "6",
       name: "Compostador Doméstico 20L",
       description: "Convierte tus residuos orgánicos en abono natural. Incluye filtro anti-olores.",
-      price: 85,
-      originalPrice: 110,
+      price: 25500,
+      originalPrice: 33000,
       rating: 4.4,
       reviews: 67,
       image: "🌱",
@@ -343,10 +343,10 @@ const Benefits = () => {
                       <p className="text-xs text-muted-foreground">{product.category}</p>
                     </div>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <div className="font-poppins font-bold text-base sm:text-lg text-eco-green">
-                      ${product.price}
-                    </div>
+                   <div className="flex items-center justify-between">
+                     <div className="font-poppins font-bold text-base sm:text-lg text-eco-green">
+                       ${product.price}
+                     </div>
                     <Badge className="bg-eco-green text-white text-xs">
                       Eco {product.ecoScore}/10
                     </Badge>

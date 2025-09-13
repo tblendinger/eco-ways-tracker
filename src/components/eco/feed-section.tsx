@@ -1,8 +1,10 @@
-import { Edit3, Sparkles } from "lucide-react";
+import { useState } from "react";
+import { Edit3, Sparkles, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { PostCard } from "./post-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Textarea } from "@/components/ui/textarea";
 
 interface FeedSectionProps {
   posts: any[];
@@ -10,10 +12,21 @@ interface FeedSectionProps {
     name: string;
     avatar?: string;
   };
-  onCreatePost: () => void;
+  onCreatePost: (content: string) => void;
 }
 
 export const FeedSection = ({ posts, currentUser, onCreatePost }: FeedSectionProps) => {
+  const [isCreating, setIsCreating] = useState(false);
+  const [newPostContent, setNewPostContent] = useState("");
+
+  const handleSubmitPost = () => {
+    if (newPostContent.trim()) {
+      onCreatePost(newPostContent.trim());
+      setNewPostContent("");
+      setIsCreating(false);
+    }
+  };
+
   return (
     <section className="space-y-4 sm:space-y-6 p-2 sm:p-4" aria-label="Feed de la comunidad">
       {/* Welcome Header */}
@@ -29,22 +42,65 @@ export const FeedSection = ({ posts, currentUser, onCreatePost }: FeedSectionPro
       {/* Quick Post */}
       <Card className="shadow-card hover:shadow-lg transition-all duration-300">
         <CardContent className="p-4">
-          <div className="flex items-center space-x-3">
-            <Avatar className="h-10 w-10">
-              <AvatarImage src={currentUser.avatar} />
-              <AvatarFallback className="bg-gradient-eco text-white font-poppins">
-                {currentUser.name.charAt(0)}
-              </AvatarFallback>
-            </Avatar>
-            <Button
-              variant="outline"
-              className="flex-1 justify-start text-muted-foreground hover:text-foreground font-inter"
-              onClick={onCreatePost}
-            >
-              <Edit3 size={16} className="mr-2" />
-              Comparte tu idea sostenible
-            </Button>
-          </div>
+          {!isCreating ? (
+            <div className="flex items-center space-x-3">
+              <Avatar className="h-10 w-10">
+                <AvatarImage src={currentUser.avatar} />
+                <AvatarFallback className="bg-gradient-eco text-white font-poppins">
+                  {currentUser.name.charAt(0)}
+                </AvatarFallback>
+              </Avatar>
+              <Button
+                variant="outline"
+                className="flex-1 justify-start text-muted-foreground hover:text-foreground font-inter"
+                onClick={() => setIsCreating(true)}
+              >
+                <Edit3 size={16} className="mr-2" />
+                Comparte tu idea sostenible
+              </Button>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              <div className="flex items-start space-x-3">
+                <Avatar className="h-10 w-10">
+                  <AvatarImage src={currentUser.avatar} />
+                  <AvatarFallback className="bg-gradient-eco text-white font-poppins">
+                    {currentUser.name.charAt(0)}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="flex-1 space-y-3">
+                  <Textarea
+                    placeholder="¿Qué acción sostenible realizaste hoy?"
+                    value={newPostContent}
+                    onChange={(e) => setNewPostContent(e.target.value)}
+                    className="min-h-[80px] resize-none"
+                    autoFocus
+                  />
+                  <div className="flex justify-end space-x-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => {
+                        setIsCreating(false);
+                        setNewPostContent("");
+                      }}
+                    >
+                      Cancelar
+                    </Button>
+                    <Button
+                      size="sm"
+                      onClick={handleSubmitPost}
+                      disabled={!newPostContent.trim()}
+                      className="bg-gradient-eco hover:shadow-eco"
+                    >
+                      <Send size={16} className="mr-2" />
+                      Publicar
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </CardContent>
       </Card>
 
@@ -81,12 +137,12 @@ export const FeedSection = ({ posts, currentUser, onCreatePost }: FeedSectionPro
                   Sigue a otros usuarios o comparte tu primera acción sostenible
                 </p>
               </div>
-              <Button 
-                onClick={onCreatePost}
-                className="bg-gradient-eco hover:shadow-eco transition-all duration-300 font-inter"
-              >
-                Crear mi primer post
-              </Button>
+               <Button 
+                 onClick={() => setIsCreating(true)}
+                 className="bg-gradient-eco hover:shadow-eco transition-all duration-300 font-inter"
+               >
+                 Crear mi primer post
+               </Button>
             </CardContent>
           </Card>
          )}
