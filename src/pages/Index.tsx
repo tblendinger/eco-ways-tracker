@@ -5,6 +5,9 @@ import { FeedSection } from "@/components/eco/feed-section";
 import { ExploreSection } from "@/components/eco/explore-section";
 import { CarbonDashboard } from "@/components/eco/carbon-dashboard";
 import { UserProfile } from "@/components/eco/user-profile";
+import { FloatingActionButton } from "@/components/eco/floating-action-button";
+import { RegisterActionModal } from "@/components/eco/register-action-modal";
+import { toast } from "@/hooks/use-toast";
 
 const Index = () => {
   // Mock data - moved up to fix declaration order
@@ -46,6 +49,7 @@ const Index = () => {
 
   const [activeTab, setActiveTab] = useState("feed");
   const [posts, setPosts] = useState(mockPosts);
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -150,7 +154,35 @@ const Index = () => {
   };
 
   const handleRegisterAction = () => {
-    console.log("Opening action registration modal...");
+    setShowRegisterModal(true);
+  };
+
+  const handleActionSaved = (savedCo2: number) => {
+    toast({
+      title: "¡Acción registrada!",
+      description: `Ahorraste ${savedCo2} kg CO₂. ¡Excelente trabajo!`
+    });
+  };
+
+  const handleActionShared = (content: string) => {
+    const newPost = {
+      user: { name: "Tomás Eco", username: "tomas_eco", avatar: undefined },
+      content,
+      co2Impact: 0,
+      actionType: "transport" as const,
+      likes: 0,
+      comments: 0,
+      isLiked: false,
+      timestamp: "ahora",
+      hasSustainableAction: true,
+    };
+    
+    setPosts([newPost, ...posts]);
+    
+    toast({
+      title: "¡Acción compartida!",
+      description: "Tu acción sostenible fue publicada en el feed"
+    });
   };
 
   const handleSearch = (query: string) => {
@@ -204,6 +236,17 @@ const Index = () => {
           {renderContent()}
         </div>
       </main>
+
+      {/* Floating Action Button */}
+      <FloatingActionButton onClick={() => setShowRegisterModal(true)} />
+
+      {/* Register Action Modal */}
+      <RegisterActionModal
+        open={showRegisterModal}
+        onOpenChange={setShowRegisterModal}
+        onActionSaved={handleActionSaved}
+        onActionShared={handleActionShared}
+      />
     </div>
   );
 };
