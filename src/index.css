@@ -62,6 +62,14 @@ Palette: EcoGreen primary #2BA84A, Orange secondary #FFB24D, Light background #F
     
     /* Animations */
     --transition-eco: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Button Design Tokens */
+    --button-pill-radius: 999px;
+    --button-cta-bg: hsl(var(--eco-green));
+    --button-cta-hover: 141 58% 38%;
+    --button-streak-bg: 0 0% 100%;
+    --button-streak-border: hsl(var(--eco-green));
+    --button-streak-active: 141 65% 50%;
 
     --radius: 0.75rem;
 
@@ -128,5 +136,42 @@ Palette: EcoGreen primary #2BA84A, Orange secondary #FFB24D, Light background #F
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  /* Pill Button Styles */
+  .btn-pill-cta {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 min-w-[140px] sm:min-w-[160px] 
+           text-base font-medium text-white rounded-full border-0 
+           bg-eco-green hover:bg-[hsl(var(--button-cta-hover))] 
+           shadow-eco hover:shadow-lg transform hover:scale-105 
+           transition-all duration-300 ease-out
+           focus:outline-none focus:ring-2 focus:ring-eco-green focus:ring-offset-2
+           disabled:opacity-50 disabled:pointer-events-none;
+  }
+  
+  .btn-pill-streak {
+    @apply inline-flex items-center justify-center gap-1.5 px-4 py-2 h-9
+           text-sm font-medium rounded-full border border-eco-green
+           bg-white text-eco-green hover:bg-eco-green hover:text-white
+           shadow-sm hover:shadow-md transform hover:scale-105
+           transition-all duration-300 ease-out
+           focus:outline-none focus:ring-2 focus:ring-eco-green focus:ring-offset-2;
+  }
+  
+  .btn-pill-streak-active {
+    @apply inline-flex items-center justify-center gap-1.5 px-4 py-2 h-9
+           text-sm font-medium rounded-full border-0
+           bg-eco-green text-white shadow-eco
+           animate-badge-glow
+           focus:outline-none focus:ring-2 focus:ring-eco-green focus:ring-offset-2;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 480px) {
+    .btn-pill-responsive {
+      @apply w-full my-2;
+    }
   }
 }

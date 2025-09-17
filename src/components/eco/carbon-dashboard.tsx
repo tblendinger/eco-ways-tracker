@@ -1,4 +1,4 @@
-import { TrendingDown, TrendingUp, Calendar, Target, Zap, Leaf } from "lucide-react";
+import { TrendingDown, TrendingUp, Calendar, Target, Plus, Leaf } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
@@ -78,16 +78,22 @@ export const CarbonDashboard = ({ data, onRegisterAction }: CarbonDashboardProps
 
         <Card className="shadow-card">
           <CardContent className="p-6 text-center">
-            <div className="space-y-2">
+            <div className="space-y-3">
               <div className="flex items-center justify-center space-x-2">
                 <Leaf size={24} className="text-eco-green" />
                 <span className="text-3xl font-poppins font-bold text-eco-green">{streak}</span>
               </div>
               <div className="text-sm text-muted-foreground">días de racha</div>
-              {streak >= 7 && (
-                <Badge className="bg-eco-green text-white">
-                  ¡Racha Desbloqueada! 🍃
-                </Badge>
+              {streak >= 7 ? (
+                <button className="btn-pill-streak-active btn-pill-responsive">
+                  <Leaf size={16} />
+                  ¡Racha Desbloqueada!
+                </button>
+              ) : (
+                <button className="btn-pill-streak btn-pill-responsive" disabled>
+                  <Leaf size={16} />
+                  {7 - streak} días para racha
+                </button>
               )}
             </div>
           </CardContent>
@@ -95,14 +101,14 @@ export const CarbonDashboard = ({ data, onRegisterAction }: CarbonDashboardProps
 
         <Card className="shadow-card">
           <CardContent className="p-6 text-center">
-            <div className="space-y-2">
-              <Button 
+            <div className="space-y-3">
+              <button 
                 onClick={onRegisterAction}
-                className="w-full bg-gradient-eco hover:shadow-eco transition-all duration-300"
+                className="btn-pill-cta btn-pill-responsive"
               >
-                <Zap size={18} className="mr-2" />
+                <Plus size={18} />
                 Registrar Acción
-              </Button>
+              </button>
               <div className="text-xs text-muted-foreground">
                 ¿Qué hiciste hoy?
               </div>
