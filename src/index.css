@@ -142,7 +142,7 @@ Palette: EcoGreen primary #2BA84A, Orange secondary #FFB24D, Light background #F
 @layer components {
   /* Pill Button Styles */
   .btn-pill-cta {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 min-w-[140px] sm:min-w-[160px] 
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 min-w-[140px] sm:min-w-[160px] md:min-w-[180px]
            text-base font-medium text-white rounded-full border-0 
            bg-eco-green hover:bg-[hsl(var(--button-cta-hover))] 
            shadow-eco hover:shadow-lg transform hover:scale-105 
@@ -152,7 +152,7 @@ Palette: EcoGreen primary #2BA84A, Orange secondary #FFB24D, Light background #F
   }
   
   .btn-pill-streak {
-    @apply inline-flex items-center justify-center gap-1.5 px-4 py-2 h-9
+    @apply inline-flex items-center justify-center gap-1.5 px-4 py-2 h-9 min-w-[120px] sm:min-w-[140px] md:min-w-[160px]
            text-sm font-medium rounded-full border border-eco-green
            bg-white text-eco-green hover:bg-eco-green hover:text-white
            shadow-sm hover:shadow-md transform hover:scale-105
@@ -161,7 +161,7 @@ Palette: EcoGreen primary #2BA84A, Orange secondary #FFB24D, Light background #F
   }
   
   .btn-pill-streak-active {
-    @apply inline-flex items-center justify-center gap-1.5 px-4 py-2 h-9
+    @apply inline-flex items-center justify-center gap-1.5 px-4 py-2 h-9 min-w-[120px] sm:min-w-[140px] md:min-w-[160px]
            text-sm font-medium rounded-full border-0
            bg-eco-green text-white shadow-eco
            animate-badge-glow
@@ -172,6 +172,27 @@ Palette: EcoGreen primary #2BA84A, Orange secondary #FFB24D, Light background #F
   @media (max-width: 480px) {
     .btn-pill-responsive {
       @apply w-full my-2;
+    }
+  }
+  
+  @media (min-width: 481px) and (max-width: 768px) {
+    .btn-pill-responsive {
+      @apply mx-auto;
+    }
+  }
+  
+  @media (min-width: 769px) {
+    .btn-pill-responsive {
+      @apply mx-auto;
+    }
+    
+    .btn-pill-cta {
+      @apply px-8 py-3.5 text-base;
+    }
+    
+    .btn-pill-streak,
+    .btn-pill-streak-active {
+      @apply px-5 py-2.5 h-10 text-sm;
     }
   }
 }
